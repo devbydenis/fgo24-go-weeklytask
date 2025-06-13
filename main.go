@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"time"
 	"weeklytask/data"
 	"weeklytask/layout"
 	"weeklytask/models"
@@ -17,27 +18,17 @@ func main() {
 	wg := sync.WaitGroup{}
 	ch1 := make(chan []models.Menu)
 	var cart []models.Menu
+	var checkout []models.Menu
 	
-	// for {
-		layout.Main_Layout()
-		
-		fmt.Println("current cart: ",cart)
+	
+	layout.WelcomeLayout()
+	time.Sleep(2 * time.Second)
+	
+	for {
 		
 		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			fmt.Println("What can i help you?")
-			fmt.Println("1. Show All Menu")
-			fmt.Println("2. Cart")
-			fmt.Println("3. Checkout")
-			fmt.Println("4. Exit")
-			fmt.Println("--------------------------------------------------")
-			fmt.Print("Input: ")
-			_, err := fmt.Scanln(&ci)
-			if err != nil {
-				fmt.Println("Invalid input")
-			}
-		}()
+		fmt.Print("\033[H\033[2J")
+		go layout.MenuLayout(&ci, &wg)
 		wg.Wait()
 		
 		switch ci {
@@ -47,14 +38,38 @@ func main() {
 			cart = <-ch1
 			wg.Wait()
 		case "2":
+			fmt.Print("\033[H\033[2J")
 			fmt.Println("my cart: ", cart)
+			fmt.Println("back to menu      [0]")
+			fmt.Println("checkout my chart [1]")
+			fmt.Print("Input: ")
+			_, err := fmt.Scanln(&ci)
+			if err != nil {
+				fmt.Println("Invalid input")
+			}
+			
+			if ci == "0" {
+				fmt.Println("you choose 0")
+				continue
+			} else if ci == "1" {
+				checkout = append(checkout, cart...)
+				fmt.Println("checkout success")
+				time.Sleep(1 * time.Second)
+				continue
+			} else {
+				fmt.Println("your input is invalid!")
+				continue
+			}
+			
 		case "3":
 			fmt.Println("my checkout")
 		case "4":
+			fmt.Println("Thanks for using Warteg Apps. See You!")
+			time.Sleep(2 * time.Second)
 			os.Exit(0)
 		default:
 			fmt.Println("your input is invalid!")
 			return
 		}
-	// }
+	}
 }	

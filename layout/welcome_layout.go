@@ -4,7 +4,8 @@ import (
 	"fmt"
 )
 
-func Main_Layout() {
+func WelcomeLayout() {
+	fmt.Print("\033[H\033[2J")
 	fmt.Println("--------------------------------------------------")
 	fmt.Println("--------------Welcome to the Warteg!--------------")
 	fmt.Println("You can order food and drinks here by inputting \nyour order in the terminal.")
