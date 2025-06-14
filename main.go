@@ -27,7 +27,7 @@ func main() {
 	for {
 		
 		wg.Add(1)
-		fmt.Print("\033[H\033[2J")
+		// fmt.Print("\033[H\033[2J")
 		go layout.MenuLayout(&ci, &wg)
 		wg.Wait()
 		
@@ -42,7 +42,9 @@ func main() {
 			fmt.Println("======================")
 			fmt.Println("M Y  C A R T")
 			fmt.Println("======================")
-			fmt.Println(cart)
+			for _, item := range cart {
+				fmt.Printf("%s\t%d\n", item.Name, item.Price)
+			}
 			fmt.Println("______________________")
 			fmt.Println("[0] Back to menu")
 			fmt.Println("[1] Checkout my chart")
@@ -70,7 +72,12 @@ func main() {
 			fmt.Println("======================")
 			fmt.Println("C H E C K O U T")
 			fmt.Println("======================")
-			fmt.Println(checkout)
+			totalPrice := 0
+			for _, item := range checkout {
+				fmt.Printf("%s\t%d\n", item.Name, item.Price)
+				totalPrice += item.Price
+			}
+			fmt.Printf("Total Price: \t%d\n", totalPrice)
 			fmt.Println("______________________")
 			fmt.Println("[0] Back to menu")
 			fmt.Println("[1] Accept and pay")
