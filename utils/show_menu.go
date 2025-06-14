@@ -35,10 +35,16 @@ func ShowMenu(ListMenu m.ListMenu, ch1 chan []m.Menu, wg *sync.WaitGroup) {
         }
     }
     
-    ch1 <- result
+    if len(result) == 0 {
+    	ch1 <- result
+        fmt.Println("No food found")
+        time.Sleep(1 * time.Second)
+    } else {
+	    ch1 <- result
+	    fmt.Println("success adding to cart")
+		time.Sleep(1 * time.Second)
+    }
     
-	fmt.Println("success adding to cart")
-	time.Sleep(1 * time.Second)
 }
 
 func ShowCart(cart []m.Menu, ci *string) {

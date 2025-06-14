@@ -39,9 +39,11 @@ func main() {
 			wg.Wait()
 		case "2":
 			fmt.Print("\033[H\033[2J")
+			fmt.Println("======================")
 			fmt.Println("my cart: ", cart)
-			fmt.Println("back to menu      [0]")
-			fmt.Println("checkout my chart [1]")
+			fmt.Println("======================")
+			fmt.Println("[0] back to menu")
+			fmt.Println("[1] checkout my chart")
 			fmt.Print("Input: ")
 			_, err := fmt.Scanln(&ci)
 			if err != nil {
@@ -58,11 +60,17 @@ func main() {
 				continue
 			} else {
 				fmt.Println("your input is invalid!")
+				time.Sleep(1 * time.Second)
 				continue
 			}
-			
 		case "3":
-			fmt.Println("my checkout")
+			fmt.Print("\033[H\033[2J")
+			fmt.Println("my checkout: ", checkout)
+			fmt.Print("Input: ")
+			_, err := fmt.Scanln(&ci)
+			if err != nil {
+				fmt.Println("Invalid input")
+			}
 		case "4":
 			fmt.Println("Thanks for using Warteg Apps. See You!")
 			time.Sleep(2 * time.Second)
