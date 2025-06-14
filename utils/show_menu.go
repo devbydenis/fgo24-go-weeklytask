@@ -44,25 +44,19 @@ func filterByName(mode string, ListMenu m.ListMenu) {
 		fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
 	}
 }
+func searchMenu(keyword string, ListMenu m.ListMenu, ch1 chan<- []m.Menu) {
+	// var result []m.Menu
+	for _, menu := range ListMenu {
+		if strings.Contains(strings.ToLower(menu.Name), strings.ToLower(keyword)) {
+			fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
+			// result = append(result, menu)
+		}
+	}
+	// ch1 <- result
+	// close(ch1)
+}
 
 func filterMenu(filter int, ListMenu m.ListMenu){
-	// fmt.Println("____________________________________________________________")
-	// fmt.Println("Showing list Menu...")
-	// fmt.Println("____________________________________________________________")
-	// for _, menu := range ListMenu {
-		// 	// fmt.Println(filter)
-		// 	switch filter {
-		// 		case 1:
-		// 			filterByFoodCategory(ListMenu)
-		// 		case 2:
-		// 			if menu.Category == "drink" {
-		// 				fmt.Println("filter by drink")
-		// 				fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
-		// 			}
-		// 		default:
-		// 			fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
-		// 		}
-		// }
 	switch filter {
 		case 1:
 			fmt.Print("\033[H\033[2J")
@@ -84,8 +78,9 @@ func filterMenu(filter int, ListMenu m.ListMenu){
 			fmt.Print("\033[H\033[2J")
 			fmt.Println("Sorted by descending name")
 			filterByName("descending", ListMenu)
+		case 6:
+			return
 		default:
-			// fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
 			fmt.Print("\033[H\033[2J")
 			fmt.Println("Invalid input. Please input number between 1-6")
 			time.Sleep(time.Second)
@@ -96,22 +91,43 @@ func filterMenu(filter int, ListMenu m.ListMenu){
 func ShowMenu(ListMenu m.ListMenu, ch1 chan []m.Menu, wg *sync.WaitGroup) {
 	defer wg.Done()
 	var input int
-	reader := bufio.NewReader(os.Stdin)
+	var search string
 	
 	for {
-		fmt.Println("  =============================")
-		fmt.Println("|| 1. Filter by food category  ||")
-		fmt.Println("|| 2. Filter by drink category ||")
-		fmt.Println("|| 3. Filter by cheapest price ||")
-		fmt.Println("|| 4. Filter by ascending name ||")
-		fmt.Println("|| 5. Filter by descending name||")
-		fmt.Println("|| 6. Search menu              ||")
-		fmt.Println("  =============================")
-		fmt.Print("\nInput: ")
-		_, err := fmt.Scan(&input)
-		if err != nil {
-			fmt.Println("Invalid input")
-			return
+		fmt.Println("  ==============================")
+		fmt.Println("|| 1. Filter by food category   ||")
+		fmt.Println("|| 2. Filter by drink category  ||")
+		fmt.Println("|| 3. Filter by cheapest price  ||")
+		fmt.Println("|| 4. Filter by ascending name  ||")
+		fmt.Println("|| 5. Filter by descending name ||")
+		fmt.Println("|| 6. Search menu               ||")
+		fmt.Println("|| 7. Back to main menu         ||")
+		fmt.Println("  ==============================")
+		
+		if input != 6 && input != 7 {
+			fmt.Print("\nInput: ")
+			_, err := fmt.Scan(&input)
+			if err != nil {
+				fmt.Println("Invalid input")
+				return
+			}
+		}
+		if input == 6 {
+			// fmt.Print("\033[H\033[2J")
+			fmt.Println("search dipannggil")
+			fmt.Print("\nSearch Menu: ")
+			_, err := fmt.Scan(&search)
+			if err != nil {
+				fmt.Println("Invalid input")
+				break
+			}
+			searchMenu(search, ListMenu, ch1)
+			// return
+			// continue
+			break
+		}
+		if input == 7 {	// back to menu
+			break
 		}
 		
 		filterMenu(input, ListMenu)
@@ -119,11 +135,12 @@ func ShowMenu(ListMenu m.ListMenu, ch1 chan []m.Menu, wg *sync.WaitGroup) {
 	
 	fmt.Println("Choose your favorite food, \nexample: nasi uduk, batagor, es dawet")
 	fmt.Print("Input: ")
-    foodName, _ := reader.ReadString('\n')
-    splitFN := strings.Split(foodName, ",")
+	reader := bufio.NewReader(os.Stdin)
+    menuNames, _ := reader.ReadString('\n')
+    splitedMN := strings.Split(menuNames, ",")
 
     result := []m.Menu{}
-    for _, name := range splitFN {
+    for _, name := range splitedMN {
         for _, food := range ListMenu {
             if strings.Contains(strings.ToLower(name), strings.ToLower(food.Name)) {
                 result = append(result, food)
