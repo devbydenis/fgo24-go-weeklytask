@@ -40,10 +40,12 @@ func main() {
 		case "2":
 			fmt.Print("\033[H\033[2J")
 			fmt.Println("======================")
-			fmt.Println("my cart: ", cart)
+			fmt.Println("M Y  C A R T")
 			fmt.Println("======================")
-			fmt.Println("[0] back to menu")
-			fmt.Println("[1] checkout my chart")
+			fmt.Println(cart)
+			fmt.Println("______________________")
+			fmt.Println("[0] Back to menu")
+			fmt.Println("[1] Checkout my chart")
 			fmt.Print("Input: ")
 			_, err := fmt.Scanln(&ci)
 			if err != nil {
@@ -51,25 +53,44 @@ func main() {
 			}
 			
 			if ci == "0" {
-				fmt.Println("you choose 0")
 				continue
 			} else if ci == "1" {
 				checkout = append(checkout, cart...)
-				fmt.Println("checkout success")
+				fmt.Println("Checkout Success")
+				time.Sleep(1 * time.Second)
+				continue
+			} else {
+				fmt.Println("Your Input Is Invalid!")
+				time.Sleep(1 * time.Second)
+				continue
+			}
+		case "3":
+			fmt.Print("\033[H\033[2J")
+			
+			fmt.Println("======================")
+			fmt.Println("C H E C K O U T")
+			fmt.Println("======================")
+			fmt.Println(checkout)
+			fmt.Println("______________________")
+			fmt.Println("[0] Back to menu")
+			fmt.Println("[1] Accept and pay")
+			fmt.Print("Input: ")
+			_, err := fmt.Scanln(&ci)
+			if err != nil {
+				fmt.Println("Invalid input")
+			}
+			
+			if ci == "0" {
+				continue
+			} else if ci == "1" {
+				// checkout = append(checkout, cart...)
+				fmt.Println("payment success")
 				time.Sleep(1 * time.Second)
 				continue
 			} else {
 				fmt.Println("your input is invalid!")
 				time.Sleep(1 * time.Second)
 				continue
-			}
-		case "3":
-			fmt.Print("\033[H\033[2J")
-			fmt.Println("my checkout: ", checkout)
-			fmt.Print("Input: ")
-			_, err := fmt.Scanln(&ci)
-			if err != nil {
-				fmt.Println("Invalid input")
 			}
 		case "4":
 			fmt.Println("Thanks for using Warteg Apps. See You!")
@@ -80,4 +101,4 @@ func main() {
 			return
 		}
 	}
-}	
+}
