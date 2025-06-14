@@ -23,7 +23,7 @@ var ListMenu = []models.Menu{
 	{ID: "F-018", Category: "Food", Name: "Siomay", Price: 30000},
 	{ID: "F-019", Category: "Food", Name: "Batagor", Price: 25000},
 	{ID: "F-020", Category: "Food", Name: "Nasi Uduk", Price: 20000},
-	{ID: "D-001", Category: "Drink", Name: "Es Teh", Price: 8000},
+	{ID: "D-001", Category: "Drink", Name: "Es Teh", Price: 12000},
 	{ID: "D-002", Category: "Drink", Name: "Es Jeruk", Price: 10000},
 	{ID: "D-003", Category: "Drink", Name: "Jus Alpukat", Price: 15000},
 	{ID: "D-004", Category: "Drink", Name: "Kopi Hitam", Price: 12000},
@@ -41,6 +41,6 @@ var ListMenu = []models.Menu{
 	{ID: "D-016", Category: "Drink", Name: "Thai Tea", Price: 18000},
 	{ID: "D-017", Category: "Drink", Name: "Chocolate Milkshake", Price: 20000},
 	{ID: "D-018", Category: "Drink", Name: "Strawberry Smoothie", Price: 21000},
-	{ID: "D-019", Category: "Drink", Name: "Air Mineral", Price: 5000},
+	{ID: "D-019", Category: "Drink", Name: "Air Mineral", Price: 10000},
 	{ID: "D-020", Category: "Drink", Name: "Es Dawet", Price: 10000},
 }
