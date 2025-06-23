@@ -7,4 +7,4 @@ type Menu struct {
 	Category string
 }
 
-type ListMenu []Menu
+var ListMenu []Menu
