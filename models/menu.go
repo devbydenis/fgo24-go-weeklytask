@@ -1,5 +1,10 @@
 package models
 
+import (
+	"fmt"
+	// "strings"
+)
+
 type Menu struct {
 	ID    string
 	Name  string
@@ -8,3 +13,7 @@ type Menu struct {
 }
 
 var ListMenu []Menu
+
+func (m Menu) RowMenu() {
+	fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", m.ID, m.Price, m.Category, m.Name)
+}

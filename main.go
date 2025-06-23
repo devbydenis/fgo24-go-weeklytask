@@ -128,13 +128,13 @@ func main() {
 				continue
 			}
 
-			case "5":
-				fmt.Println("Thanks for using Warteg Apps. See You!")
-				time.Sleep(2 * time.Second)
-				os.Exit(0)
-			default:
-				fmt.Println("your input is invalid!")
-				return
-			}
+		case "5":
+			fmt.Println("Thanks for using Warteg Apps. See You!")
+			time.Sleep(2 * time.Second)
+			os.Exit(0)
+		default:
+			fmt.Println("your input is invalid!")
+			return
 		}
 	}
+}

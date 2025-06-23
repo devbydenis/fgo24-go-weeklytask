@@ -12,7 +12,7 @@ import (
 func filterByCategory(category string, ListMenu []m.Menu) {
 	for _, menu := range ListMenu {
 		if strings.ToLower(menu.Category) == category {
-			fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
+			menu.RowMenu()
 		}
 	}
 }
@@ -22,7 +22,7 @@ func filterByCheapestPrice(ListMenu []m.Menu) {
 		return ListMenu[i].Price < ListMenu[j].Price
 	})
 	for _, menu := range ListMenu {
-		fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
+		menu.RowMenu()
 	}
 }
 
@@ -40,7 +40,7 @@ func filterByName(mode string, ListMenu []m.Menu) {
 	}
 	
 	for _, menu := range ListMenu {
-		fmt.Printf("ID: %s, Price: %d, Category: %s, Name: %s\n", menu.ID, menu.Price, menu.Category, menu.Name)
+		menu.RowMenu()
 	}
 }
 
@@ -50,6 +50,7 @@ func filterMenu(filter int, ListMenu []m.Menu){
 			fmt.Print("\033[H\033[2J")
 			fmt.Println("Filter by Food Category")
 			filterByCategory("food", ListMenu)
+			
 		case 2:
 			fmt.Print("\033[H\033[2J")
 			fmt.Println("Filter by Drink Category")

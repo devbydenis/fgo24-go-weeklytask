@@ -1,8 +1,8 @@
 package data
 
-import "weeklytask/models"
+import m "weeklytask/models"
 
-var ListMenu = []models.Menu{
+var ListMenu = []m.Menu{
 	{ID: "F-001", Category: "Food", Name: "Nasi Goreng", Price: 32000},
 	{ID: "F-002", Category: "Food", Name: "Mie Goreng", Price: 25000},
 	{ID: "F-003", Category: "Food", Name: "Sate Ayam", Price: 45000},
